@@ -1,12 +1,14 @@
 /* ==UserStyle==
 @name           ichi.moe Catppuccin
 @namespace      github.com/catppuccin/ichi.moe
-@version        1.0.0
+@version        1.1.0
 @description    Soothing pastel theme for ichi.moe
 @author         Catppuccin
 @preprocessor   stylus
 @updateURL      https://github.com/catppuccin/ichi.moe/raw/main/catppuccin.user.css
+
 @var select theme "Theme" ["Latte", "Frappe", "Macchiato", "Mocha*"]
+@var checkbox zen "Zen Mode" 0
 ==/UserStyle== */
 
 @-moz-document domain("ichi.moe") {
@@ -37,10 +39,6 @@
         $base = #eff1f5;
         $mantle = #e6e9ef;
         $crust = #dce0e8;
-
-        img {
-            filter: contrast(1.2) opacity(85%);
-        }
     }
 
     else if (theme=="Frappe") {
@@ -70,10 +68,6 @@
         $base = #303446;
         $mantle = #292c3c;
         $crust = #232634;
-
-        img {
-            filter: contrast(1.2) opacity(85%);
-        }
     }
 
     else if (theme=="Macchiato") {
@@ -103,10 +97,6 @@
         $base = #24273a;
         $mantle = #1e2030;
         $crust = #181926;
-
-        img {
-            filter: contrast(1.2) opacity(85%);
-        }
     }
 
     else if (theme=="Mocha") {
@@ -136,15 +126,11 @@
         $base = #1e1e2e;
         $mantle = #181825;
         $crust = #11111b;
-
-        img {
-            filter: contrast(1.2) opacity(85%);
-        }
     }
 
     html,
     body {
-        background: $base;
+        background: theme is "Latte" ? $mantle : $base;
         color: $text;
     }
 
@@ -161,26 +147,26 @@
     }
 
     .panel-error {
-        background-color: alpha($red, 0.3);
+        background-color: alpha($red, 0.2);
     }
 
     .highlight {
-        background-color: alpha($yellow, 0.3);
+        background-color: alpha($yellow, 0.2);
     }
 
     .gloss {
-        background-color: $surface0;
-        border-color: $overlay1;
+        background-color: theme is "Latte" ? $base : $surface0;
+        border-color: theme is "Latte" ? $surface2 : $overlay0;
     }
 
     .gloss-rtext {
-        border-color: $overlay1;
+        border-color: theme is "Latte" ? $surface2 : $overlay0;
     }
 
     .gloss:target {
-        box-shadow: 0 0 5px $overlay0;
-        -webkit-box-shadow: 0 0 5px $overlay0;
-        -moz-box-shadow: 0 0 5px $overlay0;
+        box-shadow: theme is "Latte" ? 0 0 5px $surface2 : 0 0 5px $overlay0;
+        -webkit-box-shadow: theme is "Latte" ? 0 0 5px $surface2 : 0 0 5px $overlay0;
+        -moz-box-shadow: theme is "Latte" ? 0 0 5px $surface2 : 0 0 5px $overlay0;
     }
 
     a {
@@ -224,28 +210,28 @@
     }
 
     .kanji-table td {
-        border: 1px solid $overlay0;
+        border: theme is "Latte" ? 1px solid $surface0 : 1px solid $surface1;
     }
 
     .reading-table tr:nth-of-type(2n) {
-        background-color: $base;
+        background: theme is "Latte" ? alpha($surface0, 0.5) : alpha($surface1, 0.5);
     }
 
     .reading-table tr ~ tr > td {
-        border-top: 1px solid $overlay0;
+        border-top: theme is "Latte" ? 1px solid $surface2 : 1px solid $overlay0;
     }
 
     table.kanji-match td {
-        border-right: 1px solid $overlay0;
+        border-right: theme is "Latte" ? 1px solid $surface2 : 1px solid $overlay0;
     }
 
     table.kanji-match tr:nth-of-type(2n) {
-        background-color: $base;
+        background: theme is "Latte" ? alpha($surface0, 0.5) : alpha($surface1, 0.5);
     }
 
     tr.match-row-kanji,
     tr.match-row-reading {
-        border-bottom: 1px solid $overlay0;
+        border-bottom: theme is "Latte" ? 1px solid $surface2 : 1px solid $overlay0;
     }
 
     .kanji-big a {
@@ -253,12 +239,12 @@
     }
 
     .autocomplete-suggestions {
-        border: 1px solid $overlay0;
-        background: $base;
+        border: theme is "Latte" ? 1px solid $surface2 : 1px solid $overlay0;
+        background: theme is "Latte" ? $base : $surface0;
     }
 
     .autocomplete-selected {
-        background: $surface0;
+        background: theme is "Latte" ? $base : $surface0;
     }
 
     .autocomplete-suggestions strong {
@@ -270,17 +256,17 @@
     }
 
     .button {
-        background-color: $surface2;
-        border-color: $surface2;
-        color: $text;
+        background-color: $sapphire;
+        border-color: $sapphire;
+        color: $base;
     }
 
     button:hover,
     button:focus,
     .button:hover,
     .button:focus {
-        background-color: darken($surface2, 15%);
-        color: $text;
+        background-color: darken($sapphire, 25%);
+        color: $base;
     }
 
     h1,
@@ -330,9 +316,9 @@
     input[type="checkbox"]:focus,
     input[type="radio"]:focus,
     select:focus {
-        background-color: $surface0;
+        background-color: theme is "Latte" ? $base : $surface0;
         color: $text;
-        border-color: $surface2;
+        border-color: theme is "Latte" ? $surface0 : $surface1;
     }
 
     .header-nav a {
@@ -344,15 +330,15 @@
     }
 
     .jspTrack {
-        background: $surface1;
+        background: theme is "Latte" ? $surface0 : $surface1;
     }
 
     .jspDrag {
-        background-color: $overlay0;
+        background-color: theme is "Latte" ? $surface1 : $surface2;
     }
 
     .f-dropdown {
-        background-color: $surface0;
+        background-color: theme is "Latte" ? $base : $surface0;
         border-color: $subtext1;
     }
 
@@ -381,7 +367,7 @@
 
     table {
         background: $base;
-        border-color: $surface1;
+        border-color: theme is "Latte" ? $surface0 : $surface1;
     }
 
     table tr th,
@@ -390,25 +376,70 @@
     }
 
     .kanji-table td {
-        border-color: $surface1;
+        border-color: theme is "Latte" ? $surface0 : $surface1;
     }
 
     table tr.even,
     table tr.alt,
     table tr:nth-of-type(2n) {
-        background: $surface0;
+        background: theme is "Latte" ? alpha($surface0, 0.5) : alpha($surface1, 0.5);
     }
 
     .reading-table tr ~ tr > td {
-        border-color: $surface1;
+        border-color: theme is "Latte" ? $surface0 : $surface1;
     }
 
     table.kanji-match td {
-        border-color: $surface1;
+        border-color: theme is "Latte" ? $surface0 : $surface1;
     }
 
     tr.match-row-kanji,
     tr.match-row-reading {
-        border-color: $surface1;
+        border-color: theme is "Latte" ? $surface0 : $surface1;
+    }
+
+    img {
+        filter: contrast(1.2) opacity(85%);
+    }
+
+    /* Options */
+
+    if (zen) {
+        .header,
+        footer,
+        .landing-page {
+            display: none;
+        }
+
+        div.wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            padding: 50px 0;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .gloss-all {
+            width: 100%;
+            padding: 0 10px;
+        }
+
+        #div-ichiran-result {
+            padding: 0 10px;
+        }
+
+        #div-kanji-form,
+        #w-form {
+            width: 100%;
+        }
+
+        #k-form > div > div,
+        #w-form > div > div {
+            width: 100%;
+            max-width: 304px;
+        }
     }
 }
